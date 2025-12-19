@@ -33,7 +33,7 @@
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 20px;
             position: relative;
@@ -172,7 +172,7 @@
             font-weight: 600;
         }
 
-        .input-group input {
+        .input-group input, .input-group textarea {
             width: 100%;
             padding: 18px 20px;
             border-radius: 12px;
@@ -183,7 +183,12 @@
             color: var(--newyear-dark);
         }
 
-        .input-group input:focus {
+        .input-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .input-group input:focus, .input-group textarea:focus {
             outline: none;
             box-shadow: 0 0 0 3px rgba(233, 196, 106, 0.5);
             transform: scale(1.02);
@@ -238,7 +243,6 @@
         .admin-panel {
             display: none;
             width: 100%;
-            max-width: 1000px;
             margin: 0 auto;
             animation: fadeIn 1s;
         }
@@ -254,27 +258,16 @@
             gap: 20px;
         }
 
-        .admin-controls {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
-            margin-bottom: 40px;
-        }
-
-        .control-group {
+        /* Управление окнами */
+        .windows-management {
             background: rgba(29, 53, 87, 0.8);
             border-radius: 20px;
             padding: 30px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            margin-bottom: 40px;
             border: 3px solid var(--newyear-green);
-            transition: transform 0.3s;
         }
 
-        .control-group:hover {
-            transform: translateY(-10px);
-        }
-
-        .control-group h3 {
+        .windows-management h3 {
             color: var(--newyear-green);
             margin-bottom: 25px;
             font-size: 1.8rem;
@@ -285,18 +278,44 @@
             padding-bottom: 15px;
         }
 
-        .control-item {
-            margin-bottom: 25px;
+        /* Форма добавления окна */
+        .add-window-form {
+            background: rgba(38, 70, 83, 0.6);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border: 2px solid var(--newyear-gold);
         }
 
-        .control-item label {
+        .add-window-form h4 {
+            color: var(--newyear-gold);
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
             display: block;
-            margin-bottom: 10px;
-            font-size: 1.2rem;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
             color: var(--newyear-light);
+            font-weight: 600;
         }
 
-        .control-item input {
+        .form-group input, .form-group textarea {
             width: 100%;
             padding: 15px;
             border-radius: 10px;
@@ -306,12 +325,158 @@
             color: var(--newyear-dark);
         }
 
-        .control-item input:focus {
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(233, 196, 106, 0.5);
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
         }
 
-        /* Кнопки админки */
+        /* Список окон */
+        .windows-list {
+            margin-top: 30px;
+        }
+
+        .window-item {
+            background: rgba(38, 70, 83, 0.6);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border: 2px solid;
+            position: relative;
+        }
+
+        .window-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .window-item-title {
+            font-size: 1.6rem;
+            font-weight: bold;
+            color: var(--newyear-gold);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .window-item-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .window-item-body {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .window-info {
+            background: rgba(29, 53, 87, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .window-info p {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .window-info strong {
+            color: var(--newyear-gold);
+        }
+
+        .window-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .window-stat {
+            background: rgba(233, 196, 106, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid var(--newyear-gold);
+        }
+
+        .window-stat-label {
+            font-size: 0.9rem;
+            color: var(--newyear-light);
+            margin-bottom: 5px;
+        }
+
+        .window-stat-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--newyear-gold);
+        }
+
+        /* Кнопки */
+        .action-button {
+            padding: 12px 25px;
+            border-radius: 10px;
+            border: none;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 150px;
+        }
+
+        .action-button.edit {
+            background: linear-gradient(45deg, var(--newyear-green), #2a9d8f);
+            color: white;
+        }
+
+        .action-button.delete {
+            background: linear-gradient(45deg, var(--newyear-red), #d62828);
+            color: white;
+        }
+
+        .action-button.reset {
+            background: linear-gradient(45deg, #e9c46a, #f4a261);
+            color: var(--newyear-dark);
+        }
+
+        .action-button.save {
+            background: linear-gradient(45deg, #2a9d8f, var(--newyear-green));
+            color: white;
+        }
+
+        .action-button.cancel {
+            background: linear-gradient(45deg, #555, #777);
+            color: white;
+        }
+
+        .action-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Форма редактирования */
+        .edit-window-form {
+            background: rgba(29, 53, 87, 0.9);
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 20px;
+            border: 2px dashed var(--newyear-gold);
+        }
+
+        .edit-form-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        /* Кнопки управления */
         .admin-buttons {
             display: flex;
             justify-content: center;
@@ -336,12 +501,12 @@
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
         }
 
-        .admin-button.save {
+        .admin-button.save-all {
             background: linear-gradient(45deg, var(--newyear-green), #2a9d8f);
             color: white;
         }
 
-        .admin-button.reset {
+        .admin-button.reset-all {
             background: linear-gradient(45deg, var(--newyear-red), #d62828);
             color: white;
         }
@@ -361,7 +526,7 @@
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
         }
 
-        /* Статистика */
+        /* Общая статистика */
         .stats-container {
             background: rgba(29, 53, 87, 0.8);
             border-radius: 20px;
@@ -406,14 +571,14 @@
             text-shadow: 0 0 10px rgba(233, 196, 106, 0.5);
         }
 
-        /* Таблица участников */
+        /* Участники всех окон */
         .participants-container {
             background: rgba(29, 53, 87, 0.8);
             border-radius: 20px;
             padding: 30px;
             margin-top: 40px;
             border: 3px solid var(--newyear-red);
-            max-height: 400px;
+            max-height: 500px;
             overflow-y: auto;
         }
 
@@ -493,25 +658,53 @@
             margin-bottom: 10px;
         }
 
+        /* Сообщения */
+        .no-windows-message {
+            text-align: center;
+            padding: 40px;
+            background: rgba(29, 53, 87, 0.8);
+            border-radius: 20px;
+            border: 2px dashed var(--newyear-gold);
+            margin-bottom: 30px;
+        }
+
+        .no-windows-message i {
+            font-size: 3rem;
+            color: var(--newyear-gold);
+            margin-bottom: 20px;
+        }
+
+        .no-windows-message h3 {
+            color: var(--newyear-gold);
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+        }
+
         /* Адаптивность */
         @media (max-width: 992px) {
             .header h1 { font-size: 2.5rem; }
-            .admin-controls { grid-template-columns: 1fr; }
+            .form-row { grid-template-columns: 1fr; }
+            .window-item-body { grid-template-columns: 1fr; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
         }
 
         @media (max-width: 768px) {
             .header h1 { font-size: 2rem; }
             .header h1::before, .header h1::after { display: none; }
-            .control-group { padding: 20px; }
+            .window-item-header { flex-direction: column; align-items: flex-start; gap: 15px; }
+            .window-item-actions { width: 100%; justify-content: space-between; }
+            .action-button { min-width: 120px; }
             .admin-buttons { flex-direction: column; align-items: center; }
             .admin-button { width: 100%; max-width: 350px; }
             .home-link { bottom: 20px; left: 20px; width: 60px; height: 60px; font-size: 1.5rem; }
+            .stats-grid { grid-template-columns: 1fr; }
         }
 
         @media (max-width: 576px) {
             .header h1 { font-size: 1.8rem; }
-            .password-form, .control-group { padding: 25px 20px; }
-            .stats-grid { grid-template-columns: 1fr; }
+            .password-form, .windows-management { padding: 25px 20px; }
+            .action-button { padding: 10px 15px; font-size: 0.9rem; min-width: 100px; }
+            .window-stats { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -523,7 +716,7 @@
         <!-- Шапка -->
         <div class="header">
             <h1>Админ-панель лотереи</h1>
-            <p>Панель администратора для управления новогодней лотереей.</p>
+            <p>Панель управления несколькими новогодними лотереями.</p>
         </div>
 
         <!-- Основной контент -->
@@ -543,46 +736,64 @@
 
             <!-- Админ панель управления -->
             <div class="admin-panel" id="admin-panel">
-                <h2><i class="fas fa-cogs"></i> Управление лотереей</h2>
+                <h2><i class="fas fa-cogs"></i> Управление лотереями</h2>
                 
-                <div class="admin-controls">
-                    <!-- Настройки лотереи -->
-                    <div class="control-group">
-                        <h3><i class="fas fa-sliders-h"></i> Основные настройки</h3>
-                        
-                        <div class="control-item">
-                            <label for="admin-max-per-user"><i class="fas fa-users"></i> Максимум номеров на человека</label>
-                            <input type="number" id="admin-max-per-user" min="1" max="10" value="3">
-                        </div>
-                        
-                        <div class="control-item">
-                            <label for="admin-total-numbers"><i class="fas fa-hashtag"></i> Всего номеров (от 1 до ...)</label>
-                            <input type="number" id="admin-total-numbers" min="10" max="500" value="200">
-                        </div>
-                    </div>
+                <!-- Управление окнами -->
+                <div class="windows-management">
+                    <h3><i class="fas fa-window-restore"></i> Управление окнами лотереи</h3>
                     
-                    <!-- Управление данными -->
-                    <div class="control-group">
-                        <h3><i class="fas fa-database"></i> Управление данными</h3>
-                        
-                        <div class="control-item">
-                            <label><i class="fas fa-info-circle"></i> Текущий статус лотереи</label>
-                            <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 10px; margin-top: 10px;">
-                                <p style="margin-bottom: 10px;">Выбрано номеров: <strong id="total-selected-admin">0</strong></p>
-                                <p style="margin-bottom: 10px;">Свободных номеров: <strong id="free-numbers-admin">200</strong></p>
-                                <p>Участников: <strong id="total-users-admin">0</strong></p>
+                    <!-- Форма добавления нового окна -->
+                    <div class="add-window-form">
+                        <h4><i class="fas fa-plus-circle"></i> Добавить новое окно</h4>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="new-window-title"><i class="fas fa-heading"></i> Название окна</label>
+                                <input type="text" id="new-window-title" placeholder="Например: Главный приз" maxlength="50">
+                            </div>
+                            <div class="form-group">
+                                <label for="new-window-description"><i class="fas fa-align-left"></i> Описание (текст над окном)</label>
+                                <textarea id="new-window-description" placeholder="Описание этого розыгрыша..."></textarea>
                             </div>
                         </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="new-window-total"><i class="fas fa-hashtag"></i> Всего номеров (1-1000)</label>
+                                <input type="number" id="new-window-total" min="1" max="1000" value="100" placeholder="Например: 100">
+                            </div>
+                            <div class="form-group">
+                                <label for="new-window-max"><i class="fas fa-user-check"></i> Максимум на человека (1-20)</label>
+                                <input type="number" id="new-window-max" min="1" max="20" value="3" placeholder="Например: 3">
+                            </div>
+                            <div class="form-group">
+                                <label for="new-window-order"><i class="fas fa-sort-numeric-down"></i> Порядок отображения</label>
+                                <input type="number" id="new-window-order" min="1" max="100" value="1" placeholder="1">
+                            </div>
+                        </div>
+                        <button id="add-window-btn" class="action-button save">
+                            <i class="fas fa-plus"></i> Добавить окно
+                        </button>
+                    </div>
+                    
+                    <!-- Список существующих окон -->
+                    <div class="windows-list" id="windows-list">
+                        <!-- Окна будут добавлены через JavaScript -->
+                    </div>
+                    
+                    <!-- Сообщение если нет окон -->
+                    <div id="no-windows-admin" class="no-windows-message" style="display: none;">
+                        <i class="fas fa-gift"></i>
+                        <h3>Окна лотереи не созданы</h3>
+                        <p>Добавьте первое окно лотереи с помощью формы выше.</p>
                     </div>
                 </div>
                 
                 <!-- Кнопки управления -->
                 <div class="admin-buttons">
-                    <button class="admin-button save" id="save-settings">
-                        <i class="fas fa-save"></i> Сохранить настройки
+                    <button class="admin-button save-all" id="save-all">
+                        <i class="fas fa-save"></i> Сохранить все изменения
                     </button>
-                    <button class="admin-button reset" id="reset-all">
-                        <i class="fas fa-trash-alt"></i> Очистить все выборы
+                    <button class="admin-button reset-all" id="reset-all">
+                        <i class="fas fa-trash-alt"></i> Сбросить ВСЕ выборы
                     </button>
                     <button class="admin-button logout" id="logout-admin">
                         <i class="fas fa-sign-out-alt"></i> Выйти из админки
@@ -592,44 +803,45 @@
                     </a>
                 </div>
                 
-                <!-- Статистика -->
+                <!-- Общая статистика -->
                 <div class="stats-container">
-                    <h3><i class="fas fa-chart-bar"></i> Статистика лотереи</h3>
+                    <h3><i class="fas fa-chart-bar"></i> Общая статистика</h3>
                     <div class="stats-grid">
                         <div class="stat-box">
-                            <h4>Всего номеров</h4>
-                            <div class="stat-value" id="stats-total-numbers">200</div>
+                            <h4>Всего окон</h4>
+                            <div class="stat-value" id="stats-total-windows">0</div>
                         </div>
                         <div class="stat-box">
                             <h4>Выбрано номеров</h4>
-                            <div class="stat-value" id="stats-selected-numbers">0</div>
+                            <div class="stat-value" id="stats-total-selected">0</div>
                         </div>
                         <div class="stat-box">
-                            <h4>Участников</h4>
+                            <h4>Уникальных участников</h4>
                             <div class="stat-value" id="stats-total-users">0</div>
                         </div>
                         <div class="stat-box">
-                            <h4>Заполненность</h4>
-                            <div class="stat-value" id="stats-percentage">0%</div>
+                            <h4>Общая заполненность</h4>
+                            <div class="stat-value" id="stats-total-percentage">0%</div>
                         </div>
                     </div>
                 </div>
                 
-                <!-- Участники -->
+                <!-- Участники всех окон -->
                 <div class="participants-container">
-                    <h3><i class="fas fa-user-friends"></i> Участники и их выборы</h3>
+                    <h3><i class="fas fa-user-friends"></i> Все участники</h3>
                     <table class="participants-table">
                         <thead>
                             <tr>
                                 <th>Участник</th>
+                                <th>Окно</th>
                                 <th>Выбранные номера</th>
                                 <th>Количество</th>
                             </tr>
                         </thead>
-                        <tbody id="participants-list">
+                        <tbody id="all-participants-list">
                             <!-- Данные будут загружены через JS -->
                             <tr>
-                                <td colspan="3" style="text-align: center;">Нет данных об участниках</td>
+                                <td colspan="4" style="text-align: center;">Нет данных об участниках</td>
                             </tr>
                         </tbody>
                     </table>
@@ -645,15 +857,23 @@
         <!-- Футер -->
         <div class="footer">
             <p>© Админ-панель Новогодней Лотереи. Только для администраторов.</p>
+            <p style="font-size: 0.9rem; color: rgba(255, 255, 255, 0.5);">Поддержка множественных окон лотереи</p>
         </div>
     </div>
 
     <script>
         // Конфигурация админки
         const ADMIN_CONFIG = {
-            PASSWORD: "adminlotereya", // Пароль для входа в админку
-            IS_AUTHENTICATED: false
+            PASSWORD: "adminlotereya",
+            IS_AUTHENTICATED: false,
+            WINDOWS: {}
         };
+
+        // Цвета для окон
+        const WINDOW_COLORS = [
+            '#d62828', '#2a9d8f', '#e9c46a', '#264653', '#9d4edd',
+            '#f3722c', '#43aa8b', '#577590', '#f94144', '#90be6d'
+        ];
 
         // Элементы DOM
         const elements = {
@@ -663,20 +883,29 @@
             passwordError: document.getElementById('password-error'),
             adminPanel: document.getElementById('admin-panel'),
             
-            adminMaxPerUser: document.getElementById('admin-max-per-user'),
-            adminTotalNumbers: document.getElementById('admin-total-numbers'),
-            totalSelectedAdmin: document.getElementById('total-selected-admin'),
-            freeNumbersAdmin: document.getElementById('free-numbers-admin'),
-            totalUsersAdmin: document.getElementById('total-users-admin'),
+            // Форма добавления окна
+            newWindowTitle: document.getElementById('new-window-title'),
+            newWindowDescription: document.getElementById('new-window-description'),
+            newWindowTotal: document.getElementById('new-window-total'),
+            newWindowMax: document.getElementById('new-window-max'),
+            newWindowOrder: document.getElementById('new-window-order'),
+            addWindowBtn: document.getElementById('add-window-btn'),
             
-            statsTotalNumbers: document.getElementById('stats-total-numbers'),
-            statsSelectedNumbers: document.getElementById('stats-selected-numbers'),
+            // Список окон
+            windowsList: document.getElementById('windows-list'),
+            noWindowsAdmin: document.getElementById('no-windows-admin'),
+            
+            // Статистика
+            statsTotalWindows: document.getElementById('stats-total-windows'),
+            statsTotalSelected: document.getElementById('stats-total-selected'),
             statsTotalUsers: document.getElementById('stats-total-users'),
-            statsPercentage: document.getElementById('stats-percentage'),
+            statsTotalPercentage: document.getElementById('stats-total-percentage'),
             
-            participantsList: document.getElementById('participants-list'),
+            // Участники
+            allParticipantsList: document.getElementById('all-participants-list'),
             
-            saveSettingsBtn: document.getElementById('save-settings'),
+            // Кнопки
+            saveAllBtn: document.getElementById('save-all'),
             resetAllBtn: document.getElementById('reset-all'),
             logoutAdminBtn: document.getElementById('logout-admin')
         };
@@ -728,98 +957,456 @@
             // Загружаем данные и обновляем интерфейс
             loadAdminData();
             updateAdminUI();
+            
+            // Запускаем автообновление
+            startAdminAutoUpdate();
         }
 
         // Загрузка данных для админки
         function loadAdminData() {
-            // Загружаем настройки
-            const savedMaxPerUser = localStorage.getItem('newyear_lottery_maxPerUser');
-            const savedTotalNumbers = localStorage.getItem('newyear_lottery_totalNumbers');
-            const savedSelectedNumbers = localStorage.getItem('newyear_lottery_selectedNumbers');
-            
-            if (savedMaxPerUser) {
-                elements.adminMaxPerUser.value = parseInt(savedMaxPerUser);
+            const savedWindows = localStorage.getItem('newyear_lottery_windows');
+            if (savedWindows) {
+                try {
+                    ADMIN_CONFIG.WINDOWS = JSON.parse(savedWindows);
+                } catch (e) {
+                    ADMIN_CONFIG.WINDOWS = {};
+                    console.error('Ошибка загрузки окон:', e);
+                }
+            } else {
+                ADMIN_CONFIG.WINDOWS = {};
             }
-            
-            if (savedTotalNumbers) {
-                elements.adminTotalNumbers.value = parseInt(savedTotalNumbers);
+        }
+
+        // Сохранение окон - ОЧЕНЬ ВАЖНАЯ ФУНКЦИЯ
+        function saveWindows() {
+            try {
+                // Сохраняем в localStorage
+                localStorage.setItem('newyear_lottery_windows', JSON.stringify(ADMIN_CONFIG.WINDOWS));
+                
+                // ВАЖНО: Сохраняем отдельно информацию о количестве окон для index.html
+                const windowsCount = Object.keys(ADMIN_CONFIG.WINDOWS).length;
+                localStorage.setItem('newyear_lottery_windows_count', windowsCount.toString());
+                
+                showAdminNotification('Окна успешно сохранены!', 'success');
+                
+                // Выводим отладочную информацию
+                console.log('Сохраненные окна:', ADMIN_CONFIG.WINDOWS);
+                console.log('Количество окон:', windowsCount);
+                
+            } catch (error) {
+                console.error('Ошибка при сохранении окон:', error);
+                showAdminNotification('Ошибка при сохранении окон!', 'error');
             }
         }
 
         // Обновление интерфейса админки
         function updateAdminUI() {
-            // Загружаем данные о выбранных номерах
-            const savedSelectedNumbers = localStorage.getItem('newyear_lottery_selectedNumbers');
-            let selectedNumbers = {};
+            // Обновляем список окон
+            updateWindowsList();
             
-            if (savedSelectedNumbers) {
-                selectedNumbers = JSON.parse(savedSelectedNumbers);
-            }
-            
-            // Вычисляем статистику
-            const totalSelected = Object.keys(selectedNumbers).length;
-            const totalNumbers = parseInt(elements.adminTotalNumbers.value) || 200;
-            const freeNumbers = totalNumbers - totalSelected;
-            
-            // Находим уникальных пользователей
-            const users = new Set(Object.values(selectedNumbers));
-            const totalUsers = users.size;
-            
-            // Заполненность в процентах
-            const percentage = totalNumbers > 0 ? Math.round((totalSelected / totalNumbers) * 100) : 0;
-            
-            // Обновляем значения в интерфейсе
-            elements.totalSelectedAdmin.textContent = totalSelected;
-            elements.freeNumbersAdmin.textContent = freeNumbers;
-            elements.totalUsersAdmin.textContent = totalUsers;
-            
-            elements.statsTotalNumbers.textContent = totalNumbers;
-            elements.statsSelectedNumbers.textContent = totalSelected;
-            elements.statsTotalUsers.textContent = totalUsers;
-            elements.statsPercentage.textContent = `${percentage}%`;
+            // Обновляем статистику
+            updateAdminStats();
             
             // Обновляем список участников
-            updateParticipantsList(selectedNumbers);
+            updateAllParticipantsList();
         }
 
-        // Обновление списка участников
-        function updateParticipantsList(selectedNumbers) {
-            elements.participantsList.innerHTML = '';
+        // Обновление списка окон
+        function updateWindowsList() {
+            elements.windowsList.innerHTML = '';
             
-            // Группируем номера по пользователям
-            const usersMap = {};
+            const windowIds = Object.keys(ADMIN_CONFIG.WINDOWS);
             
-            for (const [number, user] of Object.entries(selectedNumbers)) {
-                if (!usersMap[user]) {
-                    usersMap[user] = [];
-                }
-                usersMap[user].push(parseInt(number));
-            }
-            
-            // Если нет участников
-            if (Object.keys(usersMap).length === 0) {
-                const row = document.createElement('tr');
-                row.innerHTML = '<td colspan="3" style="text-align: center;">Нет данных об участниках</td>';
-                elements.participantsList.appendChild(row);
+            if (windowIds.length === 0) {
+                elements.noWindowsAdmin.style.display = 'block';
                 return;
             }
             
-            // Сортируем пользователей по алфавиту
-            const sortedUsers = Object.keys(usersMap).sort();
+            elements.noWindowsAdmin.style.display = 'none';
             
-            // Добавляем каждого пользователя в таблицу
-            sortedUsers.forEach(user => {
-                const numbers = usersMap[user].sort((a, b) => a - b);
-                const numbersText = numbers.join(', ');
+            // Сортируем окна по order (если есть) или по id
+            const sortedWindows = windowIds.sort((a, b) => {
+                const windowA = ADMIN_CONFIG.WINDOWS[a];
+                const windowB = ADMIN_CONFIG.WINDOWS[b];
+                return (windowA.order || 0) - (windowB.order || 0);
+            });
+            
+            // Создаем каждое окно
+            sortedWindows.forEach((windowId, index) => {
+                const window = ADMIN_CONFIG.WINDOWS[windowId];
+                const colorIndex = index % WINDOW_COLORS.length;
+                const windowColor = WINDOW_COLORS[colorIndex];
+                
+                const windowElement = document.createElement('div');
+                windowElement.className = 'window-item';
+                windowElement.id = `admin-window-${windowId}`;
+                windowElement.style.borderColor = windowColor;
+                
+                // Статистика окна
+                const selectedCount = window.selectedNumbers ? Object.keys(window.selectedNumbers).length : 0;
+                const totalNumbers = window.totalNumbers || 100;
+                const percentage = totalNumbers > 0 ? Math.round((selectedCount / totalNumbers) * 100) : 0;
+                
+                // Находим уникальных пользователей в этом окне
+                const uniqueUsers = window.selectedNumbers ? 
+                    new Set(Object.values(window.selectedNumbers)) : new Set();
+                
+                windowElement.innerHTML = `
+                    <div class="window-item-header">
+                        <div class="window-item-title">
+                            <i class="fas fa-gift"></i> ${window.title || `Окно ${index + 1}`}
+                        </div>
+                        <div class="window-item-actions">
+                            <button class="action-button edit" data-window="${windowId}" data-action="edit">
+                                <i class="fas fa-edit"></i> Изменить
+                            </button>
+                            <button class="action-button reset" data-window="${windowId}" data-action="reset">
+                                <i class="fas fa-redo"></i> Сбросить выборы
+                            </button>
+                            <button class="action-button delete" data-window="${windowId}" data-action="delete">
+                                <i class="fas fa-trash"></i> Удалить
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="window-item-body">
+                        <div class="window-info">
+                            <p><strong>Описание:</strong> ${window.description || 'Нет описания'}</p>
+                            <p><strong>Всего номеров:</strong> ${window.totalNumbers || 100}</p>
+                            <p><strong>Максимум на человека:</strong> ${window.maxPerUser || 3}</p>
+                            <p><strong>Порядок отображения:</strong> ${window.order || 1}</p>
+                            
+                            <div class="window-stats">
+                                <div class="window-stat">
+                                    <div class="window-stat-label">Выбрано номеров</div>
+                                    <div class="window-stat-value">${selectedCount}</div>
+                                </div>
+                                <div class="window-stat">
+                                    <div class="window-stat-label">Участников</div>
+                                    <div class="window-stat-value">${uniqueUsers.size}</div>
+                                </div>
+                                <div class="window-stat">
+                                    <div class="window-stat-label">Заполненность</div>
+                                    <div class="window-stat-value">${percentage}%</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="window-info">
+                            <p><strong>ID окна:</strong> ${windowId}</p>
+                            <p><strong>Создано:</strong> ${window.createdAt ? new Date(window.createdAt).toLocaleString() : 'Неизвестно'}</p>
+                            <p><strong>Последнее обновление:</strong> ${window.updatedAt ? new Date(window.updatedAt).toLocaleString() : 'Неизвестно'}</p>
+                            <p style="margin-top: 15px; color: var(--newyear-gold); font-size: 0.9rem;">
+                                <i class="fas fa-info-circle"></i> Чтобы изменить параметры окна, нажмите "Изменить"
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <!-- Форма редактирования (изначально скрыта) -->
+                    <div class="edit-window-form" id="edit-form-${windowId}" style="display: none;">
+                        <h4><i class="fas fa-edit"></i> Редактирование окна</h4>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="edit-title-${windowId}">Название окна</label>
+                                <input type="text" id="edit-title-${windowId}" value="${window.title || ''}" maxlength="50">
+                            </div>
+                            <div class="form-group">
+                                <label for="edit-description-${windowId}">Описание</label>
+                                <textarea id="edit-description-${windowId}">${window.description || ''}</textarea>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="edit-total-${windowId}">Всего номеров</label>
+                                <input type="number" id="edit-total-${windowId}" value="${window.totalNumbers || 100}" min="1" max="1000">
+                            </div>
+                            <div class="form-group">
+                                <label for="edit-max-${windowId}">Максимум на человека</label>
+                                <input type="number" id="edit-max-${windowId}" value="${window.maxPerUser || 3}" min="1" max="20">
+                            </div>
+                            <div class="form-group">
+                                <label for="edit-order-${windowId}">Порядок отображения</label>
+                                <input type="number" id="edit-order-${windowId}" value="${window.order || 1}" min="1" max="100">
+                            </div>
+                        </div>
+                        <div class="edit-form-actions">
+                            <button class="action-button save" data-window="${windowId}" data-action="save">
+                                <i class="fas fa-save"></i> Сохранить изменения
+                            </button>
+                            <button class="action-button cancel" data-window="${windowId}" data-action="cancel">
+                                <i class="fas fa-times"></i> Отмена
+                            </button>
+                        </div>
+                    </div>
+                `;
+                
+                elements.windowsList.appendChild(windowElement);
+            });
+            
+            // Назначаем обработчики событий для кнопок окон
+            attachWindowEventListeners();
+        }
+
+        // Привязка обработчиков событий для окон
+        function attachWindowEventListeners() {
+            // Кнопки редактирования
+            document.querySelectorAll('[data-action="edit"]').forEach(button => {
+                button.addEventListener('click', function() {
+                    const windowId = this.dataset.window;
+                    const editForm = document.getElementById(`edit-form-${windowId}`);
+                    editForm.style.display = editForm.style.display === 'none' ? 'block' : 'none';
+                });
+            });
+            
+            // Кнопки отмены
+            document.querySelectorAll('[data-action="cancel"]').forEach(button => {
+                button.addEventListener('click', function() {
+                    const windowId = this.dataset.window;
+                    const editForm = document.getElementById(`edit-form-${windowId}`);
+                    editForm.style.display = 'none';
+                });
+            });
+            
+            // Кнопки сохранения
+            document.querySelectorAll('[data-action="save"]').forEach(button => {
+                button.addEventListener('click', function() {
+                    const windowId = this.dataset.window;
+                    saveWindowChanges(windowId);
+                });
+            });
+            
+            // Кнопки сброса выборов
+            document.querySelectorAll('[data-action="reset"]').forEach(button => {
+                button.addEventListener('click', function() {
+                    const windowId = this.dataset.window;
+                    resetWindowSelections(windowId);
+                });
+            });
+            
+            // Кнопки удаления
+            document.querySelectorAll('[data-action="delete"]').forEach(button => {
+                button.addEventListener('click', function() {
+                    const windowId = this.dataset.window;
+                    deleteWindow(windowId);
+                });
+            });
+        }
+
+        // Сохранение изменений окна
+        function saveWindowChanges(windowId) {
+            const window = ADMIN_CONFIG.WINDOWS[windowId];
+            if (!window) return;
+            
+            const newTitle = document.getElementById(`edit-title-${windowId}`).value.trim();
+            const newDescription = document.getElementById(`edit-description-${windowId}`).value.trim();
+            const newTotal = parseInt(document.getElementById(`edit-total-${windowId}`).value);
+            const newMax = parseInt(document.getElementById(`edit-max-${windowId}`).value);
+            const newOrder = parseInt(document.getElementById(`edit-order-${windowId}`).value);
+            
+            // Валидация
+            if (!newTitle) {
+                showAdminNotification('Название окна не может быть пустым', 'error');
+                return;
+            }
+            
+            if (isNaN(newTotal) || newTotal < 1 || newTotal > 1000) {
+                showAdminNotification('Общее количество номеров должно быть от 1 до 1000', 'error');
+                return;
+            }
+            
+            if (isNaN(newMax) || newMax < 1 || newMax > 20) {
+                showAdminNotification('Максимальное количество номеров на человека должно быть от 1 до 20', 'error');
+                return;
+            }
+            
+            if (isNaN(newOrder) || newOrder < 1 || newOrder > 100) {
+                showAdminNotification('Порядок отображения должен быть от 1 до 100', 'error');
+                return;
+            }
+            
+            // Обновляем окно
+            window.title = newTitle;
+            window.description = newDescription;
+            window.totalNumbers = newTotal;
+            window.maxPerUser = newMax;
+            window.order = newOrder;
+            window.updatedAt = new Date().toISOString();
+            
+            // Если общее количество номеров уменьшилось, удаляем лишние выбранные номера
+            if (window.selectedNumbers) {
+                const numbersToRemove = [];
+                
+                for (const numberStr in window.selectedNumbers) {
+                    const number = parseInt(numberStr);
+                    if (number > newTotal) {
+                        numbersToRemove.push(numberStr);
+                    }
+                }
+                
+                // Удаляем номера, которые превышают новый лимит
+                numbersToRemove.forEach(number => {
+                    delete window.selectedNumbers[number];
+                });
+            }
+            
+            // Сохраняем изменения
+            saveWindows();
+            
+            // Обновляем интерфейс
+            updateAdminUI();
+            
+            // Скрываем форму редактирования
+            const editForm = document.getElementById(`edit-form-${windowId}`);
+            editForm.style.display = 'none';
+            
+            showAdminNotification(`Окно "${newTitle}" успешно обновлено!`, 'success');
+        }
+
+        // Сброс выборов в окне
+        function resetWindowSelections(windowId) {
+            const window = ADMIN_CONFIG.WINDOWS[windowId];
+            if (!window) return;
+            
+            if (confirm(`ВНИМАНИЕ: Вы уверены, что хотите сбросить все выборы в окне "${window.title || windowId}"? Все участники потеряют свои выбранные номера в этом розыгрыше.`)) {
+                // Сбрасываем выборы
+                window.selectedNumbers = {};
+                window.updatedAt = new Date().toISOString();
+                
+                // Сохраняем изменения
+                saveWindows();
+                
+                // Обновляем интерфейс
+                updateAdminUI();
+                
+                showAdminNotification(`Все выборы в окне "${window.title}" успешно сброшены!`, 'success');
+            }
+        }
+
+        // Удаление окна
+        function deleteWindow(windowId) {
+            const window = ADMIN_CONFIG.WINDOWS[windowId];
+            if (!window) return;
+            
+            if (confirm(`ВНИМАНИЕ: Вы уверены, что хотите удалить окно "${window.title || windowId}"? Это действие нельзя отменить. Все данные этого окна будут потеряны.`)) {
+                // Удаляем окно
+                delete ADMIN_CONFIG.WINDOWS[windowId];
+                
+                // Сохраняем изменения
+                saveWindows();
+                
+                // Обновляем интерфейс
+                updateAdminUI();
+                
+                showAdminNotification(`Окно "${window.title}" успешно удалено!`, 'success');
+            }
+        }
+
+        // Обновление статистики
+        function updateAdminStats() {
+            const windows = ADMIN_CONFIG.WINDOWS;
+            const windowIds = Object.keys(windows);
+            
+            // Общие показатели
+            let totalWindows = windowIds.length;
+            let totalSelected = 0;
+            let totalNumbers = 0;
+            const allUsers = new Set();
+            
+            // Считаем по всем окнам
+            windowIds.forEach(windowId => {
+                const window = windows[windowId];
+                const selectedCount = window.selectedNumbers ? Object.keys(window.selectedNumbers).length : 0;
+                const windowTotal = window.totalNumbers || 100;
+                
+                totalSelected += selectedCount;
+                totalNumbers += windowTotal;
+                
+                // Добавляем пользователей
+                if (window.selectedNumbers) {
+                    Object.values(window.selectedNumbers).forEach(user => {
+                        allUsers.add(user);
+                    });
+                }
+            });
+            
+            // Обновляем статистику
+            elements.statsTotalWindows.textContent = totalWindows;
+            elements.statsTotalSelected.textContent = totalSelected;
+            elements.statsTotalUsers.textContent = allUsers.size;
+            
+            // Процент заполненности
+            const totalPercentage = totalNumbers > 0 ? Math.round((totalSelected / totalNumbers) * 100) : 0;
+            elements.statsTotalPercentage.textContent = `${totalPercentage}%`;
+        }
+
+        // Обновление списка всех участников
+        function updateAllParticipantsList() {
+            elements.allParticipantsList.innerHTML = '';
+            
+            const windows = ADMIN_CONFIG.WINDOWS;
+            const windowIds = Object.keys(windows);
+            
+            if (windowIds.length === 0) {
+                const row = document.createElement('tr');
+                row.innerHTML = '<td colspan="4" style="text-align: center;">Нет данных об участниках</td>';
+                elements.allParticipantsList.appendChild(row);
+                return;
+            }
+            
+            // Собираем всех участников из всех окон
+            const allParticipants = [];
+            
+            windowIds.forEach(windowId => {
+                const window = windows[windowId];
+                const windowTitle = window.title || windowId;
+                
+                if (window.selectedNumbers) {
+                    // Группируем номера по пользователям в этом окне
+                    const usersMap = {};
+                    
+                    for (const [number, user] of Object.entries(window.selectedNumbers)) {
+                        if (!usersMap[user]) {
+                            usersMap[user] = [];
+                        }
+                        usersMap[user].push(parseInt(number));
+                    }
+                    
+                    // Добавляем каждого пользователя в общий список
+                    Object.entries(usersMap).forEach(([userName, numbers]) => {
+                        allParticipants.push({
+                            userName,
+                            windowTitle,
+                            numbers: numbers.sort((a, b) => a - b),
+                            windowId
+                        });
+                    });
+                }
+            });
+            
+            // Если нет участников
+            if (allParticipants.length === 0) {
+                const row = document.createElement('tr');
+                row.innerHTML = '<td colspan="4" style="text-align: center;">Нет данных об участниках</td>';
+                elements.allParticipantsList.appendChild(row);
+                return;
+            }
+            
+            // Сортируем участников по имени
+            allParticipants.sort((a, b) => a.userName.localeCompare(b.userName));
+            
+            // Добавляем каждого участника в таблицу
+            allParticipants.forEach(participant => {
+                const numbersText = participant.numbers.join(', ');
                 
                 const row = document.createElement('tr');
                 row.innerHTML = `
-                    <td>${user}</td>
+                    <td>${participant.userName}</td>
+                    <td>${participant.windowTitle}</td>
                     <td>${numbersText}</td>
-                    <td>${numbers.length}</td>
+                    <td>${participant.numbers.length}</td>
                 `;
                 
-                elements.participantsList.appendChild(row);
+                elements.allParticipantsList.appendChild(row);
             });
         }
 
@@ -835,8 +1422,11 @@
                 }
             });
             
-            // Кнопка сохранения настроек
-            elements.saveSettingsBtn.addEventListener('click', saveAdminSettings);
+            // Кнопка добавления окна
+            elements.addWindowBtn.addEventListener('click', addNewWindow);
+            
+            // Кнопка сохранения всех изменений
+            elements.saveAllBtn.addEventListener('click', saveAllChanges);
             
             // Кнопка сброса всех выборов
             elements.resetAllBtn.addEventListener('click', resetAllSelections);
@@ -897,74 +1487,99 @@
             }
         }
 
-        // Сохранение настроек админки
-        function saveAdminSettings() {
-            const maxPerUser = parseInt(elements.adminMaxPerUser.value);
-            const totalNumbers = parseInt(elements.adminTotalNumbers.value);
+        // Добавление нового окна - ОЧЕНЬ ВАЖНАЯ ФУНКЦИЯ
+        function addNewWindow() {
+            const title = elements.newWindowTitle.value.trim();
+            const description = elements.newWindowDescription.value.trim();
+            const total = parseInt(elements.newWindowTotal.value);
+            const max = parseInt(elements.newWindowMax.value);
+            const order = parseInt(elements.newWindowOrder.value);
             
-            // Валидация введенных данных
-            if (isNaN(maxPerUser) || maxPerUser < 1 || maxPerUser > 10) {
-                showAdminNotification('Максимальное количество номеров на человека должно быть от 1 до 10', 'error');
+            // Валидация
+            if (!title) {
+                showAdminNotification('Пожалуйста, введите название окна', 'error');
+                elements.newWindowTitle.focus();
                 return;
             }
             
-            if (isNaN(totalNumbers) || totalNumbers < 10 || totalNumbers > 500) {
-                showAdminNotification('Общее количество номеров должно быть от 10 до 500', 'error');
+            if (isNaN(total) || total < 1 || total > 1000) {
+                showAdminNotification('Общее количество номеров должно быть от 1 до 1000', 'error');
+                elements.newWindowTotal.focus();
                 return;
             }
             
-            // Сохраняем настройки в localStorage
-            localStorage.setItem('newyear_lottery_maxPerUser', maxPerUser);
-            localStorage.setItem('newyear_lottery_totalNumbers', totalNumbers);
-            
-            // Если общее количество номеров уменьшилось, удаляем лишние выбранные номера
-            const savedSelectedNumbers = localStorage.getItem('newyear_lottery_selectedNumbers');
-            if (savedSelectedNumbers) {
-                let selectedNumbers = JSON.parse(savedSelectedNumbers);
-                const numbersToRemove = [];
-                
-                for (const numberStr in selectedNumbers) {
-                    const number = parseInt(numberStr);
-                    if (number > totalNumbers) {
-                        numbersToRemove.push(numberStr);
-                    }
-                }
-                
-                // Удаляем номера, которые превышают новый лимит
-                numbersToRemove.forEach(number => {
-                    delete selectedNumbers[number];
-                });
-                
-                // Сохраняем обновленные данные
-                localStorage.setItem('newyear_lottery_selectedNumbers', JSON.stringify(selectedNumbers));
+            if (isNaN(max) || max < 1 || max > 20) {
+                showAdminNotification('Максимальное количество номеров на человека должно быть от 1 до 20', 'error');
+                elements.newWindowMax.focus();
+                return;
             }
+            
+            if (isNaN(order) || order < 1 || order > 100) {
+                showAdminNotification('Порядок отображения должен быть от 1 до 100', 'error');
+                elements.newWindowOrder.focus();
+                return;
+            }
+            
+            // Создаем ID окна
+            const windowId = 'window_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+            
+            // Создаем объект окна с правильной структурой
+            ADMIN_CONFIG.WINDOWS[windowId] = {
+                id: windowId,
+                title: title,
+                description: description,
+                totalNumbers: total,
+                maxPerUser: max,
+                order: order,
+                selectedNumbers: {}, // ВАЖНО: это должен быть объект, а не массив
+                createdAt: new Date().toISOString(),
+                updatedAt: new Date().toISOString()
+            };
+            
+            // Сохраняем изменения
+            saveWindows();
+            
+            // Очищаем форму
+            elements.newWindowTitle.value = '';
+            elements.newWindowDescription.value = '';
+            elements.newWindowTotal.value = '100';
+            elements.newWindowMax.value = '3';
+            elements.newWindowOrder.value = '1';
             
             // Обновляем интерфейс
             updateAdminUI();
             
-            // Показываем уведомление
-            showAdminNotification('Настройки успешно сохранены!', 'success');
+            showAdminNotification(`Новое окно "${title}" успешно добавлено! В index.html будет отображено ${total} квадратов.`, 'success');
+            
+            // Отладочная информация
+            console.log('Добавлено новое окно:', ADMIN_CONFIG.WINDOWS[windowId]);
+        }
+
+        // Сохранение всех изменений
+        function saveAllChanges() {
+            saveWindows();
+            showAdminNotification('Все изменения успешно сохранены!', 'success');
         }
 
         // Сброс всех выборов
         function resetAllSelections() {
-            if (confirm('ВНИМАНИЕ: Вы уверены, что хотите очистить ВСЕ выборы? Это действие нельзя отменить. Все участники потеряют свои выбранные номера.')) {
-                // Очищаем все выборы
-                localStorage.removeItem('newyear_lottery_selectedNumbers');
+            if (confirm('ВНИМАНИЕ: Вы уверены, что хотите сбросить ВСЕ выборы во ВСЕХ окнах? Это действие нельзя отменить. Все участники потеряют все свои выбранные номера.')) {
+                const windows = ADMIN_CONFIG.WINDOWS;
+                const windowIds = Object.keys(windows);
                 
-                // Также очищаем выборы всех пользователей
-                const keys = Object.keys(localStorage);
-                keys.forEach(key => {
-                    if (key.startsWith('newyear_lottery_user_')) {
-                        localStorage.removeItem(key);
-                    }
+                // Сбрасываем выборы во всех окнах
+                windowIds.forEach(windowId => {
+                    windows[windowId].selectedNumbers = {};
+                    windows[windowId].updatedAt = new Date().toISOString();
                 });
+                
+                // Сохраняем изменения
+                saveWindows();
                 
                 // Обновляем интерфейс
                 updateAdminUI();
                 
-                // Показываем уведомление
-                showAdminNotification('Все выборы успешно очищены! Лотерея сброшена.', 'success');
+                showAdminNotification('Все выборы во всех окнах успешно сброшены!', 'success');
             }
         }
 
@@ -972,6 +1587,9 @@
         function logoutAdmin() {
             ADMIN_CONFIG.IS_AUTHENTICATED = false;
             localStorage.removeItem('newyear_lottery_admin_auth');
+            
+            // Останавливаем автообновление
+            stopAdminAutoUpdate();
             
             // Показываем форму ввода пароля
             elements.passwordForm.style.display = 'block';
@@ -987,7 +1605,18 @@
         function showAdminNotification(message, type) {
             // Создаем элемент уведомления
             const notification = document.createElement('div');
-            notification.textContent = message;
+            
+            // Добавляем иконку в зависимости от типа
+            const icons = {
+                'success': 'fas fa-check-circle',
+                'error': 'fas fa-times-circle',
+                'warning': 'fas fa-exclamation-triangle',
+                'info': 'fas fa-info-circle'
+            };
+            
+            const icon = icons[type] || 'fas fa-info-circle';
+            notification.innerHTML = `<i class="${icon}" style="margin-right: 10px;"></i> ${message}`;
+            
             notification.style.cssText = `
                 position: fixed;
                 top: 30px;
@@ -1001,6 +1630,8 @@
                 animation: slideInRight 0.5s, fadeOut 0.5s 2.5s forwards;
                 max-width: 400px;
                 font-size: 1.1rem;
+                display: flex;
+                align-items: center;
             `;
             
             // Устанавливаем цвет в зависимости от типа
@@ -1010,6 +1641,9 @@
             } else if (type === 'error') {
                 notification.style.background = 'linear-gradient(45deg, #d62828, var(--newyear-red))';
                 notification.style.borderLeft = '6px solid #ff9999';
+            } else if (type === 'warning') {
+                notification.style.background = 'linear-gradient(45deg, #e9c46a, #f4a261)';
+                notification.style.borderLeft = '6px solid #264653';
             } else {
                 notification.style.background = 'linear-gradient(45deg, #264653, var(--newyear-blue))';
                 notification.style.borderLeft = '6px solid var(--newyear-gold)';
@@ -1037,6 +1671,28 @@
                     notification.parentNode.removeChild(notification);
                 }
             }, 3000);
+        }
+
+        // Автообновление данных в админ-панели
+        let adminUpdateInterval;
+        function startAdminAutoUpdate() {
+            // Очищаем предыдущий интервал, если есть
+            stopAdminAutoUpdate();
+            
+            // Обновляем данные каждые 10 секунд
+            adminUpdateInterval = setInterval(() => {
+                if (ADMIN_CONFIG.IS_AUTHENTICATED) {
+                    loadAdminData();
+                    updateAdminUI();
+                }
+            }, 10000); // 10 секунд
+        }
+        
+        function stopAdminAutoUpdate() {
+            if (adminUpdateInterval) {
+                clearInterval(adminUpdateInterval);
+                adminUpdateInterval = null;
+            }
         }
     </script>
 </body>
