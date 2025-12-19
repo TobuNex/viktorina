@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Админ-панель - Новогодняя Лотерея</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --newyear-red: #d62828;
+            --newyear-green: #2a9d8f;
+            --newyear-gold: #e9c46a;
+            --newyear-blue: #264653;
+            --newyear-light: #f8f9fa;
+            --newyear-dark: #1d3557;
+        }
+
+        body {
+            background: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)), 
+                        url('https://images.unsplash.com/photo-1512389142860-9c449e58a543?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80');
+            background-size: cover;
+            background-attachment: fixed;
+            color: var(--newyear-light);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Шапка админки */
+        .header {
+            text-align: center;
+            padding: 40px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header h1 {
+            font-size: 3.2rem;
+            margin-bottom: 20px;
+            color: var(--newyear-gold);
+            text-shadow: 0 0 15px rgba(233, 196, 106, 0.8);
+            position: relative;
+            display: inline-block;
+        }
+
+        .header h1::before, .header h1::after {
+            content: "🔐";
+            font-size: 2rem;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .header h1::before {
+            left: -60px;
+        }
+
+        .header h1::after {
+            right: -60px;
+        }
+
+        .header p {
+            font-size: 1.3rem;
+            color: var(--newyear-light);
+            max-width: 800px;
+            margin: 0 auto 25px;
+            line-height: 1.6;
+            background: rgba(214, 40, 40, 0.2);
+            padding: 15px 25px;
+            border-radius: 15px;
+            border-left: 5px solid var(--newyear-red);
+        }
+
+        /* Анимация снега */
+        .snowflakes {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .snowflake {
+            position: absolute;
+            top: -20px;
+            color: white;
+            font-size: 1.5rem;
+            animation: snowfall linear infinite;
+            user-select: none;
+        }
+
+        @keyframes snowfall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+            }
+        }
+
+        /* Основной контент админки */
+        .admin-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px 0;
+        }
+
+        /* Форма ввода пароля */
+        .password-form {
+            background: rgba(29, 53, 87, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            width: 100%;
+            max-width: 600px;
+            margin-bottom: 40px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            border: 3px solid var(--newyear-red);
+            animation: slideUp 1s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .password-form::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--newyear-red), var(--newyear-gold), var(--newyear-green));
+        }
+
+        @keyframes slideUp {
+            0% { transform: translateY(50px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+
+        .password-form h2 {
+            color: var(--newyear-gold);
+            margin-bottom: 25px;
+            font-size: 2.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .input-group {
+            margin-bottom: 30px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+            color: var(--newyear-light);
+            font-weight: 600;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 18px 20px;
+            border-radius: 12px;
+            border: 2px solid var(--newyear-gold);
+            background: rgba(255, 255, 255, 0.95);
+            font-size: 1.2rem;
+            transition: all 0.3s;
+            color: var(--newyear-dark);
+        }
+
+        .input-group input:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(233, 196, 106, 0.5);
+            transform: scale(1.02);
+        }
+
+        .button {
+            background: linear-gradient(45deg, var(--newyear-red), var(--newyear-green));
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            border-radius: 50px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin: 25px auto 0;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            position: relative;
+            overflow: hidden;
+            min-width: 250px;
+        }
+
+        .button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.5);
+        }
+
+        .button:active {
+            transform: translateY(0);
+        }
+
+        .button::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .button:hover::after {
+            left: 100%;
+        }
+
+        /* Админ панель управления */
+        .admin-panel {
+            display: none;
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+            animation: fadeIn 1s;
+        }
+
+        .admin-panel h2 {
+            color: var(--newyear-gold);
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .admin-controls {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .control-group {
+            background: rgba(29, 53, 87, 0.8);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            border: 3px solid var(--newyear-green);
+            transition: transform 0.3s;
+        }
+
+        .control-group:hover {
+            transform: translateY(-10px);
+        }
+
+        .control-group h3 {
+            color: var(--newyear-green);
+            margin-bottom: 25px;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-bottom: 2px solid rgba(233, 196, 106, 0.3);
+            padding-bottom: 15px;
+        }
+
+        .control-item {
+            margin-bottom: 25px;
+        }
+
+        .control-item label {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+            color: var(--newyear-light);
+        }
+
+        .control-item input {
+            width: 100%;
+            padding: 15px;
+            border-radius: 10px;
+            border: 2px solid var(--newyear-gold);
+            background: rgba(255, 255, 255, 0.95);
+            font-size: 1.1rem;
+            color: var(--newyear-dark);
+        }
+
+        .control-item input:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(233, 196, 106, 0.5);
+        }
+
+        /* Кнопки админки */
+        .admin-buttons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .admin-button {
+            padding: 18px 35px;
+            border-radius: 15px;
+            border: none;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            min-width: 220px;
+            justify-content: center;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .admin-button.save {
+            background: linear-gradient(45deg, var(--newyear-green), #2a9d8f);
+            color: white;
+        }
+
+        .admin-button.reset {
+            background: linear-gradient(45deg, var(--newyear-red), #d62828);
+            color: white;
+        }
+
+        .admin-button.logout {
+            background: linear-gradient(45deg, #555, #777);
+            color: white;
+        }
+
+        .admin-button.home {
+            background: linear-gradient(45deg, var(--newyear-blue), #1d3557);
+            color: white;
+        }
+
+        .admin-button:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Статистика */
+        .stats-container {
+            background: rgba(29, 53, 87, 0.8);
+            border-radius: 20px;
+            padding: 30px;
+            margin-top: 40px;
+            border: 3px solid var(--newyear-gold);
+        }
+
+        .stats-container h3 {
+            color: var(--newyear-gold);
+            margin-bottom: 25px;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+        }
+
+        .stat-box {
+            background: rgba(38, 70, 83, 0.6);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            border: 2px solid var(--newyear-green);
+        }
+
+        .stat-box h4 {
+            color: var(--newyear-green);
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .stat-value {
+            font-size: 2.8rem;
+            font-weight: bold;
+            color: var(--newyear-light);
+            text-shadow: 0 0 10px rgba(233, 196, 106, 0.5);
+        }
+
+        /* Таблица участников */
+        .participants-container {
+            background: rgba(29, 53, 87, 0.8);
+            border-radius: 20px;
+            padding: 30px;
+            margin-top: 40px;
+            border: 3px solid var(--newyear-red);
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .participants-container h3 {
+            color: var(--newyear-red);
+            margin-bottom: 25px;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .participants-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .participants-table th {
+            background: rgba(214, 40, 40, 0.3);
+            color: var(--newyear-gold);
+            padding: 15px;
+            text-align: left;
+            font-size: 1.2rem;
+            position: sticky;
+            top: 0;
+        }
+
+        .participants-table td {
+            padding: 15px;
+            border-bottom: 1px solid rgba(233, 196, 106, 0.2);
+            color: var(--newyear-light);
+        }
+
+        .participants-table tr:hover {
+            background: rgba(233, 196, 106, 0.1);
+        }
+
+        /* Ссылка на главную */
+        .home-link {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: linear-gradient(45deg, var(--newyear-blue), var(--newyear-green));
+            color: white;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s;
+            z-index: 100;
+            text-decoration: none;
+        }
+
+        .home-link:hover {
+            transform: scale(1.15) rotate(-15deg);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.6);
+        }
+
+        /* Футер */
+        .footer {
+            text-align: center;
+            padding: 40px 0;
+            margin-top: 60px;
+            border-top: 2px solid rgba(233, 196, 106, 0.3);
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1rem;
+            background: rgba(29, 53, 87, 0.5);
+            border-radius: 20px;
+        }
+
+        .footer p {
+            margin-bottom: 10px;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 992px) {
+            .header h1 { font-size: 2.5rem; }
+            .admin-controls { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 { font-size: 2rem; }
+            .header h1::before, .header h1::after { display: none; }
+            .control-group { padding: 20px; }
+            .admin-buttons { flex-direction: column; align-items: center; }
+            .admin-button { width: 100%; max-width: 350px; }
+            .home-link { bottom: 20px; left: 20px; width: 60px; height: 60px; font-size: 1.5rem; }
+        }
+
+        @media (max-width: 576px) {
+            .header h1 { font-size: 1.8rem; }
+            .password-form, .control-group { padding: 25px 20px; }
+            .stats-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Анимация снега -->
+    <div class="snowflakes" id="snowflakes"></div>
+
+    <div class="container">
+        <!-- Шапка -->
+        <div class="header">
+            <h1>Админ-панель лотереи</h1>
+            <p>Панель администратора для управления новогодней лотереей.</p>
+        </div>
+
+        <!-- Основной контент -->
+        <div class="admin-content">
+            <!-- Форма ввода пароля -->
+            <div class="password-form" id="password-form">
+                <h2><i class="fas fa-key"></i> Введите пароль</h2>
+                <div class="input-group">
+                    <label for="admin-password"><i class="fas fa-lock"></i> Пароль администратора</label>
+                    <input type="password" id="admin-password" placeholder="Введите пароль" autocomplete="off">
+                </div>
+                <button id="login-btn" class="button">
+                    <i class="fas fa-sign-in-alt"></i> Войти в админку
+                </button>
+                <p id="password-error" style="color: #ff9999; text-align: center; margin-top: 20px; font-weight: bold;"></p>
+            </div>
+
+            <!-- Админ панель управления -->
+            <div class="admin-panel" id="admin-panel">
+                <h2><i class="fas fa-cogs"></i> Управление лотереей</h2>
+                
+                <div class="admin-controls">
+                    <!-- Настройки лотереи -->
+                    <div class="control-group">
+                        <h3><i class="fas fa-sliders-h"></i> Основные настройки</h3>
+                        
+                        <div class="control-item">
+                            <label for="admin-max-per-user"><i class="fas fa-users"></i> Максимум номеров на человека</label>
+                            <input type="number" id="admin-max-per-user" min="1" max="10" value="3">
+                        </div>
+                        
+                        <div class="control-item">
+                            <label for="admin-total-numbers"><i class="fas fa-hashtag"></i> Всего номеров (от 1 до ...)</label>
+                            <input type="number" id="admin-total-numbers" min="10" max="500" value="200">
+                        </div>
+                    </div>
+                    
+                    <!-- Управление данными -->
+                    <div class="control-group">
+                        <h3><i class="fas fa-database"></i> Управление данными</h3>
+                        
+                        <div class="control-item">
+                            <label><i class="fas fa-info-circle"></i> Текущий статус лотереи</label>
+                            <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 10px; margin-top: 10px;">
+                                <p style="margin-bottom: 10px;">Выбрано номеров: <strong id="total-selected-admin">0</strong></p>
+                                <p style="margin-bottom: 10px;">Свободных номеров: <strong id="free-numbers-admin">200</strong></p>
+                                <p>Участников: <strong id="total-users-admin">0</strong></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Кнопки управления -->
+                <div class="admin-buttons">
+                    <button class="admin-button save" id="save-settings">
+                        <i class="fas fa-save"></i> Сохранить настройки
+                    </button>
+                    <button class="admin-button reset" id="reset-all">
+                        <i class="fas fa-trash-alt"></i> Очистить все выборы
+                    </button>
+                    <button class="admin-button logout" id="logout-admin">
+                        <i class="fas fa-sign-out-alt"></i> Выйти из админки
+                    </button>
+                    <a href="index.html" class="admin-button home">
+                        <i class="fas fa-home"></i> На главную
+                    </a>
+                </div>
+                
+                <!-- Статистика -->
+                <div class="stats-container">
+                    <h3><i class="fas fa-chart-bar"></i> Статистика лотереи</h3>
+                    <div class="stats-grid">
+                        <div class="stat-box">
+                            <h4>Всего номеров</h4>
+                            <div class="stat-value" id="stats-total-numbers">200</div>
+                        </div>
+                        <div class="stat-box">
+                            <h4>Выбрано номеров</h4>
+                            <div class="stat-value" id="stats-selected-numbers">0</div>
+                        </div>
+                        <div class="stat-box">
+                            <h4>Участников</h4>
+                            <div class="stat-value" id="stats-total-users">0</div>
+                        </div>
+                        <div class="stat-box">
+                            <h4>Заполненность</h4>
+                            <div class="stat-value" id="stats-percentage">0%</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Участники -->
+                <div class="participants-container">
+                    <h3><i class="fas fa-user-friends"></i> Участники и их выборы</h3>
+                    <table class="participants-table">
+                        <thead>
+                            <tr>
+                                <th>Участник</th>
+                                <th>Выбранные номера</th>
+                                <th>Количество</th>
+                            </tr>
+                        </thead>
+                        <tbody id="participants-list">
+                            <!-- Данные будут загружены через JS -->
+                            <tr>
+                                <td colspan="3" style="text-align: center;">Нет данных об участниках</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ссылка на главную -->
+        <a href="index.html" class="home-link" title="На главную">
+            <i class="fas fa-home"></i>
+        </a>
+
+        <!-- Футер -->
+        <div class="footer">
+            <p>© Админ-панель Новогодней Лотереи. Только для администраторов.</p>
+        </div>
+    </div>
+
+    <script>
+        // Конфигурация админки
+        const ADMIN_CONFIG = {
+            PASSWORD: "adminlotereya", // Пароль для входа в админку
+            IS_AUTHENTICATED: false
+        };
+
+        // Элементы DOM
+        const elements = {
+            passwordForm: document.getElementById('password-form'),
+            adminPasswordInput: document.getElementById('admin-password'),
+            loginBtn: document.getElementById('login-btn'),
+            passwordError: document.getElementById('password-error'),
+            adminPanel: document.getElementById('admin-panel'),
+            
+            adminMaxPerUser: document.getElementById('admin-max-per-user'),
+            adminTotalNumbers: document.getElementById('admin-total-numbers'),
+            totalSelectedAdmin: document.getElementById('total-selected-admin'),
+            freeNumbersAdmin: document.getElementById('free-numbers-admin'),
+            totalUsersAdmin: document.getElementById('total-users-admin'),
+            
+            statsTotalNumbers: document.getElementById('stats-total-numbers'),
+            statsSelectedNumbers: document.getElementById('stats-selected-numbers'),
+            statsTotalUsers: document.getElementById('stats-total-users'),
+            statsPercentage: document.getElementById('stats-percentage'),
+            
+            participantsList: document.getElementById('participants-list'),
+            
+            saveSettingsBtn: document.getElementById('save-settings'),
+            resetAllBtn: document.getElementById('reset-all'),
+            logoutAdminBtn: document.getElementById('logout-admin')
+        };
+
+        // Инициализация при загрузке страницы
+        document.addEventListener('DOMContentLoaded', function() {
+            // Создаем снег
+            createSnowflakes();
+            
+            // Назначаем обработчики событий
+            setupEventListeners();
+            
+            // Проверяем, не авторизован ли уже администратор
+            checkAdminAuth();
+        });
+
+        // Создание анимации снега
+        function createSnowflakes() {
+            const snowflakesContainer = document.getElementById('snowflakes');
+            const snowflakeSymbols = ['❄', '❅', '❆', '•', '*'];
+            
+            for (let i = 0; i < 60; i++) {
+                const snowflake = document.createElement('div');
+                snowflake.className = 'snowflake';
+                snowflake.textContent = snowflakeSymbols[Math.floor(Math.random() * snowflakeSymbols.length)];
+                snowflake.style.left = Math.random() * 100 + 'vw';
+                snowflake.style.animationDuration = Math.random() * 5 + 5 + 's';
+                snowflake.style.animationDelay = Math.random() * 5 + 's';
+                snowflake.style.fontSize = Math.random() * 15 + 15 + 'px';
+                snowflake.style.opacity = Math.random() * 0.5 + 0.3;
+                snowflakesContainer.appendChild(snowflake);
+            }
+        }
+
+        // Проверка авторизации администратора
+        function checkAdminAuth() {
+            const isAdminAuthenticated = localStorage.getItem('newyear_lottery_admin_auth');
+            if (isAdminAuthenticated === 'true') {
+                ADMIN_CONFIG.IS_AUTHENTICATED = true;
+                showAdminPanel();
+            }
+        }
+
+        // Показать админ-панель
+        function showAdminPanel() {
+            elements.passwordForm.style.display = 'none';
+            elements.adminPanel.style.display = 'block';
+            
+            // Загружаем данные и обновляем интерфейс
+            loadAdminData();
+            updateAdminUI();
+        }
+
+        // Загрузка данных для админки
+        function loadAdminData() {
+            // Загружаем настройки
+            const savedMaxPerUser = localStorage.getItem('newyear_lottery_maxPerUser');
+            const savedTotalNumbers = localStorage.getItem('newyear_lottery_totalNumbers');
+            const savedSelectedNumbers = localStorage.getItem('newyear_lottery_selectedNumbers');
+            
+            if (savedMaxPerUser) {
+                elements.adminMaxPerUser.value = parseInt(savedMaxPerUser);
+            }
+            
+            if (savedTotalNumbers) {
+                elements.adminTotalNumbers.value = parseInt(savedTotalNumbers);
+            }
+        }
+
+        // Обновление интерфейса админки
+        function updateAdminUI() {
+            // Загружаем данные о выбранных номерах
+            const savedSelectedNumbers = localStorage.getItem('newyear_lottery_selectedNumbers');
+            let selectedNumbers = {};
+            
+            if (savedSelectedNumbers) {
+                selectedNumbers = JSON.parse(savedSelectedNumbers);
+            }
+            
+            // Вычисляем статистику
+            const totalSelected = Object.keys(selectedNumbers).length;
+            const totalNumbers = parseInt(elements.adminTotalNumbers.value) || 200;
+            const freeNumbers = totalNumbers - totalSelected;
+            
+            // Находим уникальных пользователей
+            const users = new Set(Object.values(selectedNumbers));
+            const totalUsers = users.size;
+            
+            // Заполненность в процентах
+            const percentage = totalNumbers > 0 ? Math.round((totalSelected / totalNumbers) * 100) : 0;
+            
+            // Обновляем значения в интерфейсе
+            elements.totalSelectedAdmin.textContent = totalSelected;
+            elements.freeNumbersAdmin.textContent = freeNumbers;
+            elements.totalUsersAdmin.textContent = totalUsers;
+            
+            elements.statsTotalNumbers.textContent = totalNumbers;
+            elements.statsSelectedNumbers.textContent = totalSelected;
+            elements.statsTotalUsers.textContent = totalUsers;
+            elements.statsPercentage.textContent = `${percentage}%`;
+            
+            // Обновляем список участников
+            updateParticipantsList(selectedNumbers);
+        }
+
+        // Обновление списка участников
+        function updateParticipantsList(selectedNumbers) {
+            elements.participantsList.innerHTML = '';
+            
+            // Группируем номера по пользователям
+            const usersMap = {};
+            
+            for (const [number, user] of Object.entries(selectedNumbers)) {
+                if (!usersMap[user]) {
+                    usersMap[user] = [];
+                }
+                usersMap[user].push(parseInt(number));
+            }
+            
+            // Если нет участников
+            if (Object.keys(usersMap).length === 0) {
+                const row = document.createElement('tr');
+                row.innerHTML = '<td colspan="3" style="text-align: center;">Нет данных об участниках</td>';
+                elements.participantsList.appendChild(row);
+                return;
+            }
+            
+            // Сортируем пользователей по алфавиту
+            const sortedUsers = Object.keys(usersMap).sort();
+            
+            // Добавляем каждого пользователя в таблицу
+            sortedUsers.forEach(user => {
+                const numbers = usersMap[user].sort((a, b) => a - b);
+                const numbersText = numbers.join(', ');
+                
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${user}</td>
+                    <td>${numbersText}</td>
+                    <td>${numbers.length}</td>
+                `;
+                
+                elements.participantsList.appendChild(row);
+            });
+        }
+
+        // Настройка обработчиков событий
+        function setupEventListeners() {
+            // Кнопка входа
+            elements.loginBtn.addEventListener('click', loginAdmin);
+            
+            // Ввод пароля по нажатию Enter
+            elements.adminPasswordInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    loginAdmin();
+                }
+            });
+            
+            // Кнопка сохранения настроек
+            elements.saveSettingsBtn.addEventListener('click', saveAdminSettings);
+            
+            // Кнопка сброса всех выборов
+            elements.resetAllBtn.addEventListener('click', resetAllSelections);
+            
+            // Кнопка выхода из админки
+            elements.logoutAdminBtn.addEventListener('click', logoutAdmin);
+        }
+
+        // Вход администратора
+        function loginAdmin() {
+            const password = elements.adminPasswordInput.value.trim();
+            
+            if (!password) {
+                elements.passwordError.textContent = 'Пожалуйста, введите пароль';
+                return;
+            }
+            
+            if (password === ADMIN_CONFIG.PASSWORD) {
+                // Успешный вход
+                ADMIN_CONFIG.IS_AUTHENTICATED = true;
+                localStorage.setItem('newyear_lottery_admin_auth', 'true');
+                
+                // Скрываем сообщение об ошибке
+                elements.passwordError.textContent = '';
+                
+                // Показываем админ-панель
+                showAdminPanel();
+                
+                // Показываем уведомление
+                showAdminNotification('Успешный вход в админ-панель!', 'success');
+            } else {
+                // Неверный пароль
+                elements.passwordError.textContent = 'Неверный пароль! Попробуйте снова.';
+                elements.adminPasswordInput.value = '';
+                elements.adminPasswordInput.focus();
+                
+                // Анимация ошибки
+                elements.passwordForm.style.animation = 'none';
+                setTimeout(() => {
+                    elements.passwordForm.style.animation = 'shake 0.5s';
+                }, 10);
+                
+                // Добавляем CSS для анимации тряски
+                const style = document.createElement('style');
+                style.textContent = `
+                    @keyframes shake {
+                        0%, 100% { transform: translateX(0); }
+                        10%, 30%, 50%, 70%, 90% { transform: translateX(-10px); }
+                        20%, 40%, 60%, 80% { transform: translateX(10px); }
+                    }
+                `;
+                document.head.appendChild(style);
+                
+                // Удаляем анимацию после завершения
+                setTimeout(() => {
+                    elements.passwordForm.style.animation = '';
+                }, 500);
+            }
+        }
+
+        // Сохранение настроек админки
+        function saveAdminSettings() {
+            const maxPerUser = parseInt(elements.adminMaxPerUser.value);
+            const totalNumbers = parseInt(elements.adminTotalNumbers.value);
+            
+            // Валидация введенных данных
+            if (isNaN(maxPerUser) || maxPerUser < 1 || maxPerUser > 10) {
+                showAdminNotification('Максимальное количество номеров на человека должно быть от 1 до 10', 'error');
+                return;
+            }
+            
+            if (isNaN(totalNumbers) || totalNumbers < 10 || totalNumbers > 500) {
+                showAdminNotification('Общее количество номеров должно быть от 10 до 500', 'error');
+                return;
+            }
+            
+            // Сохраняем настройки в localStorage
+            localStorage.setItem('newyear_lottery_maxPerUser', maxPerUser);
+            localStorage.setItem('newyear_lottery_totalNumbers', totalNumbers);
+            
+            // Если общее количество номеров уменьшилось, удаляем лишние выбранные номера
+            const savedSelectedNumbers = localStorage.getItem('newyear_lottery_selectedNumbers');
+            if (savedSelectedNumbers) {
+                let selectedNumbers = JSON.parse(savedSelectedNumbers);
+                const numbersToRemove = [];
+                
+                for (const numberStr in selectedNumbers) {
+                    const number = parseInt(numberStr);
+                    if (number > totalNumbers) {
+                        numbersToRemove.push(numberStr);
+                    }
+                }
+                
+                // Удаляем номера, которые превышают новый лимит
+                numbersToRemove.forEach(number => {
+                    delete selectedNumbers[number];
+                });
+                
+                // Сохраняем обновленные данные
+                localStorage.setItem('newyear_lottery_selectedNumbers', JSON.stringify(selectedNumbers));
+            }
+            
+            // Обновляем интерфейс
+            updateAdminUI();
+            
+            // Показываем уведомление
+            showAdminNotification('Настройки успешно сохранены!', 'success');
+        }
+
+        // Сброс всех выборов
+        function resetAllSelections() {
+            if (confirm('ВНИМАНИЕ: Вы уверены, что хотите очистить ВСЕ выборы? Это действие нельзя отменить. Все участники потеряют свои выбранные номера.')) {
+                // Очищаем все выборы
+                localStorage.removeItem('newyear_lottery_selectedNumbers');
+                
+                // Также очищаем выборы всех пользователей
+                const keys = Object.keys(localStorage);
+                keys.forEach(key => {
+                    if (key.startsWith('newyear_lottery_user_')) {
+                        localStorage.removeItem(key);
+                    }
+                });
+                
+                // Обновляем интерфейс
+                updateAdminUI();
+                
+                // Показываем уведомление
+                showAdminNotification('Все выборы успешно очищены! Лотерея сброшена.', 'success');
+            }
+        }
+
+        // Выход из админки
+        function logoutAdmin() {
+            ADMIN_CONFIG.IS_AUTHENTICATED = false;
+            localStorage.removeItem('newyear_lottery_admin_auth');
+            
+            // Показываем форму ввода пароля
+            elements.passwordForm.style.display = 'block';
+            elements.adminPanel.style.display = 'none';
+            elements.adminPasswordInput.value = '';
+            elements.passwordError.textContent = '';
+            
+            // Показываем уведомление
+            showAdminNotification('Вы вышли из админ-панели', 'info');
+        }
+
+        // Показать уведомление в админке
+        function showAdminNotification(message, type) {
+            // Создаем элемент уведомления
+            const notification = document.createElement('div');
+            notification.textContent = message;
+            notification.style.cssText = `
+                position: fixed;
+                top: 30px;
+                right: 30px;
+                padding: 20px 25px;
+                border-radius: 12px;
+                color: white;
+                font-weight: bold;
+                z-index: 1000;
+                box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+                animation: slideInRight 0.5s, fadeOut 0.5s 2.5s forwards;
+                max-width: 400px;
+                font-size: 1.1rem;
+            `;
+            
+            // Устанавливаем цвет в зависимости от типа
+            if (type === 'success') {
+                notification.style.background = 'linear-gradient(45deg, #2a9d8f, var(--newyear-green))';
+                notification.style.borderLeft = '6px solid var(--newyear-gold)';
+            } else if (type === 'error') {
+                notification.style.background = 'linear-gradient(45deg, #d62828, var(--newyear-red))';
+                notification.style.borderLeft = '6px solid #ff9999';
+            } else {
+                notification.style.background = 'linear-gradient(45deg, #264653, var(--newyear-blue))';
+                notification.style.borderLeft = '6px solid var(--newyear-gold)';
+            }
+            
+            // Добавляем CSS анимации
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes slideInRight {
+                    from { transform: translateX(100%); opacity: 0; }
+                    to { transform: translateX(0); opacity: 1; }
+                }
+                @keyframes fadeOut {
+                    from { opacity: 1; }
+                    to { opacity: 0; }
+                }
+            `;
+            document.head.appendChild(style);
+            
+            document.body.appendChild(notification);
+            
+            // Удаляем уведомление через 3 секунды
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.parentNode.removeChild(notification);
+                }
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
